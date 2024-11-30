@@ -1,4 +1,3 @@
-from database import Base
 from crud import create_product, get_product, delete_product
 from schemas import ProductCreate
 

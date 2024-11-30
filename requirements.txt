@@ -1,0 +1,14 @@
+python-dotenv
+
+httpx
+
+fastapi
+uvicorn
+
+sqlalchemy
+psycopg2-binary
+
+pytest
+pytest-asyncio
+pytest-mock
+

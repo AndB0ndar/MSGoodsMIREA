@@ -17,8 +17,8 @@ router = APIRouter()
     response_model=list[schemas.Warehouse],
     responses={
         200: {"description": "List of warehouses retrieved successfully"},
-        400: {"description": "Invalid pagination parameters"}
-    }
+        400: {"description": "Invalid pagination parameters"},
+    },
 )
 def read_warehouses(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     """
@@ -35,8 +35,8 @@ def read_warehouses(skip: int = 0, limit: int = 10, db: Session = Depends(get_db
     response_model=schemas.Warehouse,
     responses={
         201: {"description": "Warehouse created successfully"},
-        400: {"description": "Invalid input data"}
-    }
+        400: {"description": "Invalid input data"},
+    },
 )
 def create_warehouse(warehouse: schemas.WarehouseCreate, db: Session = Depends(get_db)):
     """
@@ -53,8 +53,8 @@ def create_warehouse(warehouse: schemas.WarehouseCreate, db: Session = Depends(g
     response_model=schemas.Warehouse,
     responses={
         200: {"description": "Warehouse details retrieved successfully"},
-        404: {"description": "Warehouse not found"}
-    }
+        404: {"description": "Warehouse not found"},
+    },
 )
 def read_warehouse(warehouse_id: int, db: Session = Depends(get_db)):
     """
@@ -74,8 +74,8 @@ def read_warehouse(warehouse_id: int, db: Session = Depends(get_db)):
     response_model=schemas.Warehouse,
     responses={
         200: {"description": "Warehouse deleted successfully"},
-        404: {"description": "Warehouse not found"}
-    }
+        404: {"description": "Warehouse not found"},
+    },
 )
 def delete_warehouse(warehouse_id: int, db: Session = Depends(get_db)):
     """
@@ -85,4 +85,3 @@ def delete_warehouse(warehouse_id: int, db: Session = Depends(get_db)):
     if warehouse is None:
         raise HTTPException(status_code=404, detail="Warehouse not found")
     return warehouse
-

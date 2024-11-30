@@ -9,7 +9,9 @@ def get_warehouses(db: Session, skip: int = 0, limit: int = 10):
 
 
 def get_warehouse(db: Session, warehouse_id: int):
-    return db.query(models.Warehouse).filter(models.Warehouse.id == warehouse_id).first()
+    return (
+        db.query(models.Warehouse).filter(models.Warehouse.id == warehouse_id).first()
+    )
 
 
 def create_warehouse(db: Session, warehouse: schemas.WarehouseCreate):
@@ -21,7 +23,9 @@ def create_warehouse(db: Session, warehouse: schemas.WarehouseCreate):
 
 
 def delete_warehouse(db: Session, warehouse_id: int):
-    db_warehouse = db.query(models.Warehouse).filter(models.Warehouse.id == warehouse_id).first()
+    db_warehouse = (
+        db.query(models.Warehouse).filter(models.Warehouse.id == warehouse_id).first()
+    )
     if db_warehouse:
         db.delete(db_warehouse)
         db.commit()
@@ -46,14 +50,19 @@ def create_product(db: Session, product: schemas.ProductCreate):
 
 
 def delete_product(db: Session, product_id: int):
-    db_product = db.query(models.Product).filter(models.Product.id == product_id).first()
+    db_product = (
+        db.query(models.Product).filter(models.Product.id == product_id).first()
+    )
     if db_product:
         # call order service
         product_name = db_product.name
         quantity = db_product.quantity
         warehouse_id = db_product.warehouse_id
         import asyncio
-        asyncio.run(notify_order_service(product_id, product_name, quantity, warehouse_id))
+
+        asyncio.run(
+            notify_order_service(product_id, product_name, quantity, warehouse_id)
+        )
 
         # delete product
         db.delete(db_product)
@@ -62,7 +71,9 @@ def delete_product(db: Session, product_id: int):
     return None
 
 
-async def notify_order_service(product_id: int, product_name: str, quantity: int, location_id: int):
+async def notify_order_service(
+    product_id: int, product_name: str, quantity: int, location_id: int
+):
     url = "http://orders_service:8000/orders"
     data = {
         "product_id": product_id,
@@ -75,4 +86,3 @@ async def notify_order_service(product_id: int, product_name: str, quantity: int
         # TODO: process return
         response.raise_for_status()  # raise if status code not 2xx
         return response.json()
-

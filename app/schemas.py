@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import List, Optional
 
+
 class ProductBase(BaseModel):
     name: str
     price: float
@@ -34,4 +35,3 @@ class Warehouse(WarehouseBase):
 
     class Config:
         orm_mode = True
-

@@ -18,9 +18,8 @@ class Product(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
-    price = Column(Float, default = 1.0)
-    quantity = Column(Integer, default = 0)
+    price = Column(Float, default=1.0)
+    quantity = Column(Integer, default=0)
     warehouse_id = Column(Integer, ForeignKey("warehouses.id"))
 
     warehouse = relationship("Warehouse", back_populates="products")
-

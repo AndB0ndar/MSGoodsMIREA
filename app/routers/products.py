@@ -17,8 +17,8 @@ router = APIRouter()
     response_model=list[schemas.Product],
     responses={
         200: {"description": "List of products retrieved successfully"},
-        400: {"description": "Invalid pagination parameters"}
-    }
+        400: {"description": "Invalid pagination parameters"},
+    },
 )
 def read_products(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     """
@@ -35,8 +35,8 @@ def read_products(skip: int = 0, limit: int = 10, db: Session = Depends(get_db))
     response_model=schemas.Product,
     responses={
         200: {"description": "Product created successfully"},
-        400: {"description": "Invalid input data"}
-    }
+        400: {"description": "Invalid input data"},
+    },
 )
 def create_product(product: schemas.ProductCreate, db: Session = Depends(get_db)):
     """
@@ -53,8 +53,8 @@ def create_product(product: schemas.ProductCreate, db: Session = Depends(get_db)
     response_model=schemas.Product,
     responses={
         200: {"description": "Product details retrieved successfully"},
-        404: {"description": "Product not found"}
-    }
+        404: {"description": "Product not found"},
+    },
 )
 def read_product(product_id: int, db: Session = Depends(get_db)):
     """
@@ -74,8 +74,8 @@ def read_product(product_id: int, db: Session = Depends(get_db)):
     response_model=schemas.Product,
     responses={
         200: {"description": "Product deleted successfully"},
-        404: {"description": "Product not found"}
-    }
+        404: {"description": "Product not found"},
+    },
 )
 def delete_product(product_id: int, db: Session = Depends(get_db)):
     """
@@ -85,4 +85,3 @@ def delete_product(product_id: int, db: Session = Depends(get_db)):
     if product is None:
         raise HTTPException(status_code=404, detail="Product not found")
     return product
-
